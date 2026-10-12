@@ -1,0 +1,7 @@
+{
+  "required": true,
+  "package": "com.enochmods.hunterseye.client.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": ["EntityRenderStateMixin", "EntityRendererMixin", "EntityRenderDispatcherMixin", "ClientEntityMixin", "ItemInHandRendererMixin", "LivingParticlesMixin", "TrackingEmitterMixin"],
+  "injectors": { "defaultRequire": 1 }
+}

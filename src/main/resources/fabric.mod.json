@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "hunterseye",
+  "version": "${version}",
+  "name": "Hunter's Eye",
+  "description": "A bound eye for Hunter's Gaze, normal invisibility and full invisibility.",
+  "authors": ["EnochMods"],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.enochmods.hunterseye.HuntersEye"],
+    "client": ["com.enochmods.hunterseye.client.HuntersEyeClient"]
+  },
+  "mixins": ["hunterseye.mixins.json", {"config":"hunterseye.client.mixins.json","environment":"client"}],
+  "depends": {"fabricloader":">=0.19.3", "minecraft":"~26.2", "java":">=25", "fabric-api":"*"}
+}
