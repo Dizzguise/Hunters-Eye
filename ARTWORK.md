@@ -1,6 +1,6 @@
 # Item artwork
 
-Hunter's Eye 0.2.6 uses a tagged vanilla Ender Eye and the `hunterseye:hunters_eye` string at custom-model-data index 0. Without a resource pack it has the vanilla appearance. The optional 0.2.4 resource pack supplies the original violet-and-gold artwork. No art is regenerated or recolored, and ordinary Ender Eyes retain their vanilla fallback.
+Hunter's Eye 0.2.7 uses a tagged vanilla Ender Eye and the `hunterseye:hunters_eye` string at custom-model-data index 0. Without a resource pack it has the vanilla appearance. The optional 0.2.4 resource pack supplies the original violet-and-gold artwork. No art is regenerated or recolored, and ordinary Ender Eyes retain their vanilla fallback.
 
 The [pack source and installation guide](resource-pack/README.md) are included in this repository. Source assets live under `resource-pack/pack`. Run `./gradlew resourcePack` to produce `build/resourcepacks/hunters-eye-resource-pack-26.2-0.2.4.zip`; the root `build` task also packages it.
 

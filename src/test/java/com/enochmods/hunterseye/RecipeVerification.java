@@ -38,11 +38,19 @@ public final class RecipeVerification {
         ShapedRecipe recipe = (ShapedRecipe) decoded;
         check(recipe.getSerializer() == ShapedRecipe.SERIALIZER, "no custom network serializer needed");
         check(recipe.getWidth() == 3 && recipe.getHeight() == 3, "recipe requires a 3x3 crafting table");
-        List<ItemStack> grid = List.of(new ItemStack(Items.GOLD_BLOCK), new ItemStack(Items.DIAMOND_SWORD), new ItemStack(Items.GOLD_BLOCK),
+        List<ItemStack> grid = List.of(new ItemStack(Items.DIAMOND_BLOCK), new ItemStack(Items.NETHERITE_SPEAR), new ItemStack(Items.DIAMOND_BLOCK),
+                new ItemStack(Items.NETHERITE_SWORD), new ItemStack(Items.ENDER_EYE), new ItemStack(Items.NETHERITE_AXE),
+                new ItemStack(Items.DIAMOND_BLOCK), new ItemStack(Items.BEACON), new ItemStack(Items.DIAMOND_BLOCK));
+        CraftingInput input = CraftingInput.of(3, 3, grid);
+        check(recipe.matches(input, null), "diamond block corners, spear top, sword/axe sides, beacon bottom and Ender Eye center craft");
+        List<ItemStack> oldGrid = List.of(new ItemStack(Items.GOLD_BLOCK), new ItemStack(Items.DIAMOND_SWORD), new ItemStack(Items.GOLD_BLOCK),
                 new ItemStack(Items.NETHERITE_INGOT), new ItemStack(Items.ENDER_EYE), new ItemStack(Items.NETHERITE_INGOT),
                 new ItemStack(Items.GOLD_BLOCK), new ItemStack(Items.DIAMOND_AXE), new ItemStack(Items.GOLD_BLOCK));
-        CraftingInput input = CraftingInput.of(3, 3, grid);
-        check(recipe.matches(input, null), "gold corners, sword/axe edges and netherite sides craft");
+        check(!recipe.matches(CraftingInput.of(3, 3, oldGrid), null), "old gold-block recipe is rejected");
+        var mirrored = new ArrayList<>(grid);
+        mirrored.set(3, grid.get(5));
+        mirrored.set(5, grid.get(3));
+        check(recipe.matches(CraftingInput.of(3, 3, mirrored), null), "vanilla horizontal mirror also crafts");
         for (int slot = 0; slot < 9; slot++) {
             var wrong = new ArrayList<>(grid);
             wrong.set(slot, new ItemStack(Items.AMETHYST_SHARD));

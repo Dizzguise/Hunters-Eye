@@ -1,12 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
-  "pattern": ["GSG", "NEN", "GAG"],
+  "pattern": ["DPD", "SEA", "DBD"],
   "key": {
-    "G": "minecraft:gold_block",
-    "S": "minecraft:diamond_sword",
-    "A": "minecraft:diamond_axe",
-    "N": "minecraft:netherite_ingot",
+    "D": "minecraft:diamond_block",
+    "P": "minecraft:netherite_spear",
+    "S": "minecraft:netherite_sword",
+    "A": "minecraft:netherite_axe",
+    "B": "minecraft:beacon",
     "E": "minecraft:ender_eye"
   },
   "result": {

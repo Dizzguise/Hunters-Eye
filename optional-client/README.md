@@ -1,6 +1,6 @@
 # Eye Visuals 0.1.1
 
-Optional **Fabric client helper for Minecraft Java 26.2**, used with Hunter's Eye 0.2.6 on the server. Install `eye-visuals-0.1.1.jar` and Fabric API 0.161.0+26.2 on a client running Fabric Loader 0.19.3+ and Java 25. For single-player, put it in the local Fabric instance alongside Hunter's Eye. Do not install it on a dedicated server.
+Optional **Fabric client helper for Minecraft Java 26.2**, used with Hunter's Eye 0.2.7 on the server. Install `eye-visuals-0.1.1.jar` and Fabric API 0.161.0+26.2 on a client running Fabric Loader 0.19.3+ and Java 25. For single-player, put it in the local Fabric instance alongside Hunter's Eye. Do not install it on a dedicated server.
 
 While the server confirms that your own Phantom Hunt mode is Full, the helper hides your local player rendering: body, armor, held equipment, cape/name, fire and shadow in F5, plus first-person hands and held items. It adds no controls or powers. Keep using the server's existing Eye gestures and `/hunterseye phantom normal|full|off` commands. Normal and Off retain their normal rendering.
 

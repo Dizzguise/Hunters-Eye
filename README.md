@@ -1,12 +1,12 @@
 # Hunter's Eye
 
-**Minecraft Java 26.2 / Fabric**, version **0.2.6**. Install this mod on the server; players may connect with ordinary vanilla clients. It also works in a Fabric single-player instance. Hunter's Gaze and Phantom Hunt use vanilla items, controls, commands, action bars, entity metadata, and entity tracking packets. No client mod is required. An optional 0.2.4 resource pack gives the Eyes their original artwork; the Gaze box needs no resource pack.
+**Minecraft Java 26.2 / Fabric**, version **0.2.7**. Install this mod on the server; players may connect with ordinary vanilla clients. It also works in a Fabric single-player instance. Hunter's Gaze and Phantom Hunt use vanilla items, controls, commands, action bars, entity metadata, and entity tracking packets. No client mod is required. An optional 0.2.4 resource pack gives the Eyes their original artwork; the Gaze box needs no resource pack.
 
 ## Install and obtain
 
 Download the current server mod, optional client helper, and artwork pack from [Releases](https://github.com/Dizzguise/Hunters-Eye/releases/latest).
 
-Use Java 25, Fabric Loader **0.19.3** or newer, and Fabric API **0.161.0+26.2**. Copy the built hunters-eye-0.2.6.jar and matching Fabric API jar to the server's mods folder, then restart. For single-player, put those jars in the local Fabric instance. This project has no dependency on Enoch or Ghost Slots.
+Use Java 25, Fabric Loader **0.19.3** or newer, and Fabric API **0.161.0+26.2**. Copy the built hunters-eye-0.2.7.jar and matching Fabric API jar to the server's mods folder, then restart. For single-player, put those jars in the local Fabric instance. This project has no dependency on Enoch or Ghost Slots.
 
 An operator with gamemaster permissions (normally operator level 2+), or a player currently in Creative mode, can mint an Eye:
 
@@ -18,14 +18,14 @@ The optional [resource pack](resource-pack/README.md) contains the original viol
 
 ## Crafting and recipe book
 
-Use a crafting table with this arrangement. Each craft consumes one Ender Eye, four gold blocks, one diamond sword, one diamond axe, and two netherite ingots, producing one unbound Hunter's Eye.
+Use a crafting table with this arrangement. Each craft consumes one Ender Eye, four diamond blocks, one netherite spear, one netherite sword, one netherite axe, and one beacon, producing one unbound Hunter's Eye.
 
-| Gold block | Diamond sword | Gold block |
+| Diamond block | Netherite spear | Diamond block |
 | --- | --- | --- |
-| Netherite ingot | Ender Eye | Netherite ingot |
-| Gold block | Diamond axe | Gold block |
+| Netherite sword | Ender Eye | Netherite axe |
+| Diamond block | Beacon | Diamond block |
 
-Acquiring an Ender Eye unlocks the recipe in the vanilla recipe book. The result preview includes the name and item components; enabling the artwork pack shows the original violet-and-gold icon there too. Without the pack it uses the vanilla Ender Eye icon. Crafted Eyes receive separate identities and work with the same controls as command-created Eyes. The optional visual helper is not needed for crafting or the recipe book.
+Vanilla shaped recipes also accept the horizontal mirror, with sword and axe swapped. Acquiring an Ender Eye unlocks the recipe in the vanilla recipe book. The result preview includes the name and item components; enabling the artwork pack shows the original violet-and-gold icon there too. Without the pack it uses the vanilla Ender Eye icon. Crafted Eyes receive separate identities and work with the same controls as command-created Eyes. The optional visual helper is not needed for crafting or the recipe book.
 
 ## Controls
 

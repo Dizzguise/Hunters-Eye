@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.7
+
+- Revise the Eye recipe to diamond-block corners, a netherite spear at top, a netherite sword at left, a netherite axe at right, a beacon at bottom, and an Ender Eye center. Each craft consumes four diamond blocks and one of each other ingredient.
+- Verify the new grid, vanilla horizontal mirroring, and rejection of the former gold-block recipe. Keep the recipe-book unlock, output components, powers, Eye Visuals 0.1.1, and artwork pack 0.2.4 unchanged.
+
 ## 0.2.6
 
 - Add a Survival crafting-table recipe using one Ender Eye, four gold blocks, a diamond sword, a diamond axe, and two netherite ingots. Crafting creates an unbound Eye with its own identity.
