@@ -13,15 +13,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Player.class)
 public abstract class PlayerAttackMixin {
-    // Packet reach/LOS checks have already accepted the entity attack before Player.attack.
-    // HEAD intentionally counts shield blocks and damage immunity, but never air swings/mining.
-    @Inject(method="attack",at=@At("HEAD"))
-    private void hunterseye$attack(Entity target,CallbackInfo ci) { HunterEyePower.offensiveAction((Player)(Object)this); }
-    @Inject(method="stabAttack",at=@At("HEAD"))
+    // Block before attack effects, knockback, weapon wear or exhaustion; mining is unaffected.
+    @Inject(method="attack",at=@At("HEAD"),cancellable=true)
+    private void hunterseye$attack(Entity target,CallbackInfo ci) {
+        if(HunterEyePower.blocksOutgoingDamage((Player)(Object)this)) ci.cancel();
+    }
+    @Inject(method="stabAttack",at=@At("HEAD"),cancellable=true)
     private void hunterseye$stab(EquipmentSlot slot,Entity target,float damage,boolean a,boolean b,boolean c,
-            CallbackInfoReturnable<Boolean> cir) { HunterEyePower.offensiveAction((Player)(Object)this); }
-    @Inject(method="startAutoSpinAttack",at=@At("HEAD"))
+            CallbackInfoReturnable<Boolean> cir) {
+        if(HunterEyePower.blocksOutgoingDamage((Player)(Object)this)) cir.setReturnValue(false);
+    }
+    @Inject(method="startAutoSpinAttack",at=@At("HEAD"),cancellable=true)
     private void hunterseye$riptide(int ticks,float damage,ItemStack weapon,CallbackInfo ci) {
-        HunterEyePower.offensiveAction((Player)(Object)this);
+        if(HunterEyePower.blocksOutgoingDamage((Player)(Object)this)) ci.cancel();
     }
 }

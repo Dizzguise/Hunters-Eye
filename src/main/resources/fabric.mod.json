@@ -3,14 +3,13 @@
   "id": "hunterseye",
   "version": "${version}",
   "name": "Hunter's Eye",
-  "description": "A bound eye for Hunter's Gaze, normal invisibility and full invisibility.",
+  "description": "Server-side Hunter's Gaze and Phantom Hunt with persistent activation cooldowns and optional owner visuals.",
   "authors": ["EnochMods"],
   "license": "MIT",
   "environment": "*",
   "entrypoints": {
-    "main": ["com.enochmods.hunterseye.HuntersEye"],
-    "client": ["com.enochmods.hunterseye.client.HuntersEyeClient"]
+    "main": ["com.enochmods.hunterseye.HuntersEye"]
   },
-  "mixins": ["hunterseye.mixins.json", {"config":"hunterseye.client.mixins.json","environment":"client"}],
+  "mixins": ["hunterseye.mixins.json"],
   "depends": {"fabricloader":">=0.19.3", "minecraft":"~26.2", "java":">=25", "fabric-api":"*"}
 }

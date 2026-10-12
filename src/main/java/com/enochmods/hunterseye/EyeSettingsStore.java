@@ -7,10 +7,8 @@ import com.google.gson.JsonParser;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.AtomicMoveNotSupportedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -28,6 +26,11 @@ final class EyeSettingsStore {
     EyeSettingsStore(Path worldRoot) { path=worldRoot.resolve("data/hunterseye-settings.json"); load(); }
     EyePowerState state(UUID owner) { return states.computeIfAbsent(owner,id->new EyePowerState()); }
     void changed() { dirty=true; save(); }
+    void restoreTimers(long nowMillis,EyeConfig config) {
+        boolean changed=false;
+        for(EyePowerState state:states.values()) changed|=state.restoreTimer(nowMillis,config);
+        if(changed) changed();
+    }
     private void load() {
         if(!Files.exists(path)) return;
         try(Reader reader=Files.newBufferedReader(path,StandardCharsets.UTF_8)) {
@@ -41,6 +44,10 @@ final class EyeSettingsStore {
                     if(data.has("activeEye")) state.activeEye=UUID.fromString(data.get("activeEye").getAsString());
                     state.tracking=data.get("tracking").getAsBoolean();
                     state.mode=ConcealmentMode.valueOf(data.get("mode").getAsString());
+                    state.normalCooldownUntil=data.has("normalCooldownUntil")?data.get("normalCooldownUntil").getAsLong():0;
+                    state.fullCooldownUntil=data.has("fullCooldownUntil")?data.get("fullCooldownUntil").getAsLong():0;
+                    state.modeUntil=data.has("modeUntil")?data.get("modeUntil").getAsLong():0;
+                    if(state.modeUntil<0||state.normalCooldownUntil<0||state.fullCooldownUntil<0) throw new IllegalArgumentException("Invalid power deadline");
                     states.put(owner,state);
                 } catch(RuntimeException error) {
                     preserveOriginal=true;
@@ -58,6 +65,8 @@ final class EyeSettingsStore {
         states.forEach((owner,state)->{
             JsonObject data=new JsonObject(); if(state.activeEye!=null) data.addProperty("activeEye",state.activeEye.toString());
             data.addProperty("tracking",state.tracking); data.addProperty("mode",state.mode.name()); players.add(owner.toString(),data);
+            data.addProperty("modeUntil",state.modeUntil);
+            data.addProperty("normalCooldownUntil",state.normalCooldownUntil); data.addProperty("fullCooldownUntil",state.fullCooldownUntil);
         });
         root.add("players",players);
         Path temporary=path.resolveSibling(path.getFileName()+".tmp");
@@ -72,8 +81,7 @@ final class EyeSettingsStore {
                 LOGGER.warn("Preserved invalid Hunter's Eye settings in {}",backup);
             }
             Files.writeString(temporary,GSON.toJson(root),StandardCharsets.UTF_8);
-            try { Files.move(temporary,path,StandardCopyOption.REPLACE_EXISTING,StandardCopyOption.ATOMIC_MOVE); }
-            catch(AtomicMoveNotSupportedException error) { Files.move(temporary,path,StandardCopyOption.REPLACE_EXISTING); }
+            EyeStorage.replace(temporary,path);
             dirty=false;
         } catch(IOException error) { LOGGER.error("Unable to save Hunter's Eye settings",error); }
     }

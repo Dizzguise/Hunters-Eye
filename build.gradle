@@ -23,7 +23,48 @@ tasks.register('verifyPowers', JavaExec) {
     mainClass = 'com.enochmods.hunterseye.PowerVerification'
 }
 check.dependsOn verifyPowers
+tasks.register('verifyControls', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'com.enochmods.hunterseye.ControlVerification'
+}
+check.dependsOn verifyControls
 // Tests use the executable verifyPowers harness, not JUnit discovery.
 tasks.named('test').configure { enabled = false }
-// The focused verification harness executes directly, without a JUnit discovery engine.
-tasks.named('test').configure { enabled = false }
+
+tasks.register('verifyResourcePack') {
+    inputs.dir('resource-pack/pack')
+    doLast {
+        def root = file('resource-pack/pack')
+        def expected = ['pack.mcmeta', 'assets/hunterseye/models/item/hunters_eye.json',
+                        'assets/hunterseye/textures/item/hunters_eye.png', 'assets/minecraft/items/ender_eye.json'] as Set
+        def actual = fileTree(root).files.collect { root.toPath().relativize(it.toPath()).toString().replace('\\', '/') } as Set
+        if (actual != expected) throw new GradleException('Unexpected artwork pack contents.')
+        def json = new groovy.json.JsonSlurper()
+        def metadata = json.parse(new File(root, 'pack.mcmeta')).pack
+        if (metadata.min_format != [88, 0] || metadata.max_format != [88, 0]) {
+            throw new GradleException('Artwork must target Minecraft 26.2 resource format 88.0.')
+        }
+        def selector = json.parse(new File(root, 'assets/minecraft/items/ender_eye.json')).model
+        if (selector.type != 'minecraft:select' || selector.property != 'minecraft:custom_model_data' || selector.index != 0
+                || selector.cases.size() != 1 || selector.cases[0].when != 'hunterseye:hunters_eye'
+                || selector.cases[0].model.model != 'hunterseye:item/hunters_eye'
+                || selector.fallback.model != 'minecraft:item/ender_eye') {
+            throw new GradleException('Artwork selector or vanilla fallback differs from the server item contract.')
+        }
+        def model = json.parse(new File(root, 'assets/hunterseye/models/item/hunters_eye.json'))
+        if (model.parent != 'minecraft:item/generated' || model.textures.layer0 != 'hunterseye:item/hunters_eye') {
+            throw new GradleException('Invalid original Eye model.')
+        }
+    }
+}
+tasks.register('resourcePack', Zip) {
+    dependsOn verifyResourcePack
+    from('resource-pack/pack')
+    archiveFileName = 'hunters-eye-resource-pack-26.2-0.2.4.zip'
+    destinationDirectory = layout.buildDirectory.dir('resourcepacks')
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
+check.dependsOn verifyResourcePack, gradle.includedBuild('optional-client').task(':check')
+assemble.dependsOn resourcePack, gradle.includedBuild('optional-client').task(':assemble')

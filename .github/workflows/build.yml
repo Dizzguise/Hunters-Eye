@@ -21,5 +21,8 @@ jobs:
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: mod-jars
-          path: build/libs/*.jar
+          path: |
+            build/libs/*.jar
+            build/resourcepacks/*.zip
+            optional-client/build/libs/*.jar
           if-no-files-found: error

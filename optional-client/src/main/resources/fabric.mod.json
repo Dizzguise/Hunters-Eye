@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "id": "eyevisuals",
+  "version": "${version}",
+  "name": "Eye Visuals",
+  "description": "Optional local-player rendering helper for the server-authorized Hunter's Eye Full mode.",
+  "authors": ["EnochMods"],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {"client": ["com.enochmods.eyevisuals.EyeVisualsClient"]},
+  "mixins": ["eyevisuals.mixins.json"],
+  "depends": {"fabricloader": ">=0.19.3", "minecraft": "~26.2", "java": ">=25", "fabric-api": "*"}
+}

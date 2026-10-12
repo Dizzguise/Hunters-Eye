@@ -1,7 +1,0 @@
-Use case: stylized-concept
-Asset type: Minecraft inventory item texture, a single transparent pixel-art sprite.
-Primary request: Hunter's Eye, a magical gold eye amulet surrounding a vivid violet iris and a deep dark pupil.
-Scene/backdrop: genuinely transparent background, no backdrop.
-Style/medium: crisp Minecraft-compatible pixel art, coarse 32 by 32 logical pixel grid enlarged with perfectly hard nearest-neighbor square pixel edges to a 1024 by 1024 square image. Limited palette, chunky readable silhouette and pixel clusters, no smooth gradients.
-Composition: one centered isolated horizontal almond-shaped gold eye, violet round iris in the center with dark pupil, occupies 80 percent of image. Warm gold rim with bright yellow pixel highlights and dark brown edge, violet iris with lavender pixel highlights, dark pupil unmistakably readable.
-Constraints: only one inventory item, alpha transparency outside the sprite, no lettering, no words, no numbers, no watermark, no scene, no shadow outside sprite, no blur, no antialiasing, no realistic rendering.

@@ -1,0 +1,7 @@
+{
+  "required": true,
+  "package": "com.enochmods.eyevisuals.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": ["EntityRenderStateMixin", "EntityRendererMixin", "EntityRenderDispatcherMixin", "ItemInHandRendererMixin", "EntityFullEffectsMixin", "LivingEntityFullEffectsMixin", "TrackingEmitterMixin", "HoneyBlockParticlesMixin"],
+  "injectors": {"defaultRequire": 1}
+}
