@@ -1,20 +1,31 @@
 # Hunter's Eye
 
-**Minecraft Java 26.2 / Fabric**, version **0.2.5**. Install this mod on the server; players may connect with ordinary vanilla clients. It also works in a Fabric single-player instance. Hunter's Gaze and Phantom Hunt use vanilla items, controls, commands, action bars, entity metadata, and entity tracking packets. No client mod is required. An optional 0.2.4 resource pack gives the Eyes their original artwork; the Gaze box needs no resource pack.
+**Minecraft Java 26.2 / Fabric**, version **0.2.6**. Install this mod on the server; players may connect with ordinary vanilla clients. It also works in a Fabric single-player instance. Hunter's Gaze and Phantom Hunt use vanilla items, controls, commands, action bars, entity metadata, and entity tracking packets. No client mod is required. An optional 0.2.4 resource pack gives the Eyes their original artwork; the Gaze box needs no resource pack.
 
 ## Install and obtain
 
 Download the current server mod, optional client helper, and artwork pack from [Releases](https://github.com/Dizzguise/Hunters-Eye/releases/latest).
 
-Use Java 25, Fabric Loader **0.19.3** or newer, and Fabric API **0.161.0+26.2**. Copy the built hunters-eye-0.2.5.jar and matching Fabric API jar to the server's mods folder, then restart. For single-player, put those jars in the local Fabric instance. This project has no dependency on Enoch or Ghost Slots.
+Use Java 25, Fabric Loader **0.19.3** or newer, and Fabric API **0.161.0+26.2**. Copy the built hunters-eye-0.2.6.jar and matching Fabric API jar to the server's mods folder, then restart. For single-player, put those jars in the local Fabric instance. This project has no dependency on Enoch or Ghost Slots.
 
-An operator with gamemaster permissions (normally operator level 2+) can mint an Eye:
+An operator with gamemaster permissions (normally operator level 2+), or a player currently in Creative mode, can mint an Eye:
 
     /hunterseye give eye [player]
 
-Omit the optional player to give the item to yourself. A server console must name the player. The player must have a free inventory slot. These are tagged vanilla Ender Eyes with a unique saved identity, a one-item stack limit, a custom name, and instructions in their lore. A regular vanilla Ender Eye has no powers. The Eye has a violet name and uses the vanilla Ender Eye texture without the artwork pack. There is no creative-tab entry or crafting recipe.
+Omit the optional player to give the item to yourself. A server console must name the player. The player must have a free inventory slot. These are tagged vanilla Ender Eyes with a unique saved identity, a one-item stack limit, a custom name, and instructions in their lore. A regular vanilla Ender Eye has no powers. The Eye has a violet name and uses the vanilla Ender Eye texture without the artwork pack. There is no creative-tab entry; Survival players can craft the Eye with the recipe below.
 
 The optional [resource pack](resource-pack/README.md) contains the original violet-and-gold Eye artwork. Source assets live under `resource-pack/pack`; the built pack is `build/resourcepacks/hunters-eye-resource-pack-26.2-0.2.4.zip`. A server can offer or require its hosted HTTPS pack with vanilla resource-pack, resource-pack-sha1, and require-resource-pack settings; clients need no helper mod for textures or controls.
+
+## Crafting and recipe book
+
+Use a crafting table with this arrangement. Each craft consumes one Ender Eye, four gold blocks, one diamond sword, one diamond axe, and two netherite ingots, producing one unbound Hunter's Eye.
+
+| Gold block | Diamond sword | Gold block |
+| --- | --- | --- |
+| Netherite ingot | Ender Eye | Netherite ingot |
+| Gold block | Diamond axe | Gold block |
+
+Acquiring an Ender Eye unlocks the recipe in the vanilla recipe book. The result preview includes the name and item components; enabling the artwork pack shows the original violet-and-gold icon there too. Without the pack it uses the vanilla Ender Eye icon. Crafted Eyes receive separate identities and work with the same controls as command-created Eyes. The optional visual helper is not needed for crafting or the recipe book.
 
 ## Controls
 
@@ -51,7 +62,7 @@ Gaze sends the holder a private bounding box around an eligible same-dimension t
 
 ## Admin settings
 
-These commands require gamemaster permissions. Configuration is specific to the active world.
+All mod commands require gamemaster permissions or a player currently in Creative mode, including status, Gaze, and Phantom Hunt commands. Survival players use the item controls instead. Permission is checked on every command, and command suggestions refresh when game mode changes. Configuration is specific to the active world.
 
 | Command | Allowed value | Default |
 | --- | --- | --- |
@@ -75,7 +86,7 @@ Normal applies vanilla invisibility metadata: the body disappears while equipmen
 
 On vanilla clients, your own first-person hands, held item and F5 equipment can still render; the TAB player list still shows you. The optional [Eye Visuals 0.1.1](optional-client/README.md) Fabric client helper hides your own rendering while the server confirms Full. Install its jar only on clients, with Fabric API. It is unnecessary for gameplay or observer concealment and must not be installed on a dedicated server. Full hides the entity other clients normally aim at for direct melee interaction, so they cannot select it using their normal crosshair targeting. Server collision, non-movement sounds, dropped items, and ordinary world interaction remain. Full allows incoming damage, including area damage. This is concealment rather than removal from the world.
 
-Full is a **noncombat mode**. Damage-dealing actions are blocked while it is active, and attempting an attack does not reveal you or end Full. Direct attacks, damaging item use, and damage attributed to your attacks/projectiles are checked on the server. Turn it off with /hunterseye phantom off before fighting. Normal remains ordinary invisibility and allows combat. Disabling an Eye mode never removes an unrelated invisibility potion.
+Full is a **noncombat mode**. Damage-dealing actions are blocked while it is active, and attempting an attack does not reveal you or end Full. Direct attacks, damaging item use, and damage attributed to your attacks/projectiles are checked on the server. Turn it off with Swap Hands before fighting, or use /hunterseye phantom off when authorized. Normal remains ordinary invisibility and allows combat. Disabling an Eye mode never removes an unrelated invisibility potion.
 
 Full also blocks common hazardous item actions (lava, ignition, TNT, crystals and explosive bed/anchor use). Existing offensive projectiles are neutralized; a recoverable survival trident is returned to its owner's inventory (or dropped by vanilla inventory handling if full), preserving its item data. Owned lingering-cloud applications pause. Already-applied status effects and unattributed redstone/environment chains retain vanilla behavior; this is not a world protection system.
 
@@ -107,6 +118,6 @@ From this repository with Java 25:
 
     ./gradlew build
 
-On Windows, use `.\gradlew.bat` in place of `./gradlew`. The root build produces the core jar and source jar under `build/libs`, builds the optional client helper under `optional-client/build/libs`, and packages the resource pack under `build/resourcepacks`. It runs `verifyPowers` and `verifyControls`, the included executable JVM harnesses, plus helper checks and pack selector validation.
+On Windows, use `.\gradlew.bat` in place of `./gradlew`. The root build produces the core jar and source jar under `build/libs`, builds the optional client helper under `optional-client/build/libs`, and packages the resource pack under `build/resourcepacks`. It runs `verifyPowers` and `verifyControls`, the included executable JVM harnesses, plus verifyRecipe, helper checks and pack selector validation.
 
 The helper can also be built independently with `./gradlew -p optional-client build`; the pack can be packaged with `./gradlew resourcePack`. This repository contains the source and build inputs for all three components. See [ARTWORK.md](ARTWORK.md) for item art and [VERIFICATION.md](VERIFICATION.md) for coverage and gameplay limits.

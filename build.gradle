@@ -29,6 +29,12 @@ tasks.register('verifyControls', JavaExec) {
     mainClass = 'com.enochmods.hunterseye.ControlVerification'
 }
 check.dependsOn verifyControls
+tasks.register('verifyRecipe', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'com.enochmods.hunterseye.RecipeVerification'
+}
+check.dependsOn verifyRecipe
 // Tests use the executable verifyPowers harness, not JUnit discovery.
 tasks.named('test').configure { enabled = false }
 

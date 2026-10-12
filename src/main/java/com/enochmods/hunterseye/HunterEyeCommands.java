@@ -15,8 +15,13 @@ import net.minecraft.world.item.ItemStack;
 
 public final class HunterEyeCommands {
     private HunterEyeCommands() {}
+    public static boolean canUseCommands(CommandSourceStack source) {
+        return Commands.hasPermission(Commands.LEVEL_GAMEMASTERS).test(source)
+                || source.getPlayer()!=null&&source.getPlayer().isCreative();
+    }
     public static void register() {
         CommandRegistrationCallback.EVENT.register((dispatcher,registries,environment)->dispatcher.register(Commands.literal("hunterseye")
+            .requires(HunterEyeCommands::canUseCommands)
             .executes(c->status(c.getSource()))
             .then(Commands.literal("status").executes(c->status(c.getSource())))
             .then(Commands.literal("gaze").executes(c->{ HunterEyePower.action(c.getSource().getPlayerOrException(),HunterEyeNetworking.Action.TOGGLE_TRACKING); return 1; }))
@@ -24,10 +29,10 @@ public final class HunterEyeCommands {
                 .then(Commands.literal("normal").executes(c->phantom(c.getSource(),ConcealmentMode.NORMAL)))
                 .then(Commands.literal("full").executes(c->phantom(c.getSource(),ConcealmentMode.FULL)))
                 .then(Commands.literal("off").executes(c->phantom(c.getSource(),ConcealmentMode.NONE))))
-            .then(Commands.literal("give").requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
+            .then(Commands.literal("give")
                 .then(Commands.literal("eye").executes(c->give(c,false))
                     .then(Commands.argument("player",EntityArgument.player()).executes(c->give(c,true)))))
-            .then(Commands.literal("config").requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
+            .then(Commands.literal("config")
                 .executes(c->showConfig(c.getSource()))
                 .then(Commands.literal("show").executes(c->showConfig(c.getSource())))
                 .then(Commands.literal("bindRange").then(Commands.argument("blocks",IntegerArgumentType.integer(1,128)).executes(c->

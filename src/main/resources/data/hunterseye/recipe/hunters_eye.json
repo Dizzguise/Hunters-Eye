@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": ["GSG", "NEN", "GAG"],
+  "key": {
+    "G": "minecraft:gold_block",
+    "S": "minecraft:diamond_sword",
+    "A": "minecraft:diamond_axe",
+    "N": "minecraft:netherite_ingot",
+    "E": "minecraft:ender_eye"
+  },
+  "result": {
+    "id": "minecraft:ender_eye",
+    "count": 1,
+    "components": {
+      "minecraft:custom_data": {"hunterseye_variant": "eye"},
+      "minecraft:max_stack_size": 1,
+      "minecraft:custom_name": {"text": "Hunter's Eye", "color": "#b68ae8", "italic": false},
+      "minecraft:custom_model_data": {"strings": ["hunterseye:hunters_eye"]},
+      "minecraft:lore": [
+        {"text": "Hunter's Gaze / Phantom Hunt"},
+        {"text": "Full: noncombat concealment"},
+        {"text": "Use: select / Sneak + use: bind visible player or mob"},
+        {"text": "Swap hands: Full / Drop: Normal / Sneak + attack: Gaze"},
+        {"text": "Unbound"}
+      ]
+    }
+  }
+}

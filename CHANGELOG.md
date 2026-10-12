@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.6
+
+- Add a Survival crafting-table recipe using one Ender Eye, four gold blocks, a diamond sword, a diamond axe, and two netherite ingots. Crafting creates an unbound Eye with its own identity.
+- Unlock the recipe when acquiring an Ender Eye. The vanilla recipe-book result retains the custom name and original artwork selector; no client mod is required.
+- Restrict every Hunter's Eye command, including status and ability commands, to gamemaster operators or players currently in Creative mode. Survival item controls are unchanged, and command suggestions refresh on game-mode changes.
+- Add 47 vanilla recipe/advancement/output/display checks. Keep optional Eye Visuals 0.1.1 and artwork pack 0.2.4 unchanged.
+
 ## 0.2.5
 
 - Set both default activation cooldowns to 30 seconds; keep independent configurable deadlines.
